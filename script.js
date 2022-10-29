@@ -1,6 +1,6 @@
 let numsForCalculate = [];
 let operatorVal;
-let prevAnswer;
+let prevAnswer = null;
 function multiply(x, y) {
     return x * y;
 }
@@ -13,8 +13,13 @@ function displayNums() {
     const nums = document.querySelectorAll('.numpad');
     for (const num of nums) {
         num.addEventListener('click', () => {
+            if(numsForCalculate.length > 1){
+                output.textContent = '';
+                numsForCalculate = [];
+                prevAnswer = null;
+            }
             if (checkOperator() === true){
-                removeOperator();
+                removeSelectedClass();
                 output.textContent = '';
             }
             output.textContent += num.textContent;
@@ -23,7 +28,7 @@ function displayNums() {
         })
     }
 }
-function removeOperator(){
+function removeSelectedClass(){
     const operators = document.querySelectorAll('.operator');
     for (const op of operators) {
         op.classList.remove('selected');
@@ -37,22 +42,39 @@ function checkOperator(){
     return false;
 }
 
+function checkrepeatOperation(){
+    const output = document.querySelector('.output');
+    if(numsForCalculate.length > 1) {
+        numsForCalculate.pop()}
+    else if (numsForCalculate.length === 1){
+        numsForCalculate.push(+output.textContent);
+        output.textContent = operate(operatorVal);
+        numsForCalculate = [];
+        numsForCalculate.push(output.textContent);
+        return true;
+    };
+}
 function getOperator() {
     const operators = document.querySelectorAll('.operator');
     const output = document.querySelector('.output');
     for (const operator of operators) {
         operator.addEventListener('click', () => {
-            if(numsForCalculate.length > 1) numsForCalculate.pop();
-            removeOperator();
+            removeSelectedClass();
             operator.classList.add('selected');
             operatorVal = operator.textContent.toLowerCase();
-            if(prevAnswer === undefined){
+            if (checkrepeatOperation() === true) return;
+            if(prevAnswer === null){
             numsForCalculate.push(+output.textContent);
             }
         })
     }
 }
-
+document.querySelector('.clear').addEventListener('click', () => {
+    numsForCalculate = [];
+    prevAnswer = null;
+    document.querySelector('.output').textContent = '';
+    removeSelectedClass();
+})
 document.querySelector('.equals').addEventListener('click', () => {
     const output = document.querySelector('.output');
 

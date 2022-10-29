@@ -65,10 +65,19 @@ body{
     cursor: pointer;
 }
 .divide, .times, .plus, .equals{
+    box-sizing: border-box;
+    width: 22%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 44px;
     background-color: rgb(255, 166, 0);
     font-size: 60px;
+    margin: 5px;
+    border-radius: 15px;
 }
-.divide:hover, .times:hover, .plus:hover, .equals:hover{
+.divide:hover, .times:hover, .plus:hover, .equals:hover, .selected{
     filter: brightness(120%);
     cursor: pointer;
 }

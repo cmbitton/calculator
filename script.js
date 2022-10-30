@@ -1,11 +1,16 @@
 let numsForCalculate = [];
 let operatorVal;
 let prevAnswer = null;
+
 function multiply(x, y) {
     return x * y;
 }
+function add(x, y){
+    return x + y;
+}
 function operate(operator) {
     if (operator.toLowerCase() === 'x') return multiply(numsForCalculate[0], numsForCalculate[1]);
+    if (operator.toLowerCase() === '+') return add(numsForCalculate[0], numsForCalculate[1]);
 }
 
 function displayNums() {
@@ -42,15 +47,16 @@ function checkOperator(){
     return false;
 }
 
-function checkrepeatOperation(){
+function checkrepeatOperation(operator){
     const output = document.querySelector('.output');
     if(numsForCalculate.length > 1) {
         numsForCalculate.pop()}
     else if (numsForCalculate.length === 1){
         numsForCalculate.push(+output.textContent);
         output.textContent = operate(operatorVal);
+        operatorVal = operator.textContent.toLowerCase();
         numsForCalculate = [];
-        numsForCalculate.push(output.textContent);
+        numsForCalculate.push(+output.textContent);
         return true;
     };
 }
@@ -61,8 +67,9 @@ function getOperator() {
         operator.addEventListener('click', () => {
             removeSelectedClass();
             operator.classList.add('selected');
+            if (checkrepeatOperation(operator) === true) {
+                return};
             operatorVal = operator.textContent.toLowerCase();
-            if (checkrepeatOperation() === true) return;
             if(prevAnswer === null){
             numsForCalculate.push(+output.textContent);
             }

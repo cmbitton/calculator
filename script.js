@@ -61,7 +61,7 @@ function checkrepeatOperation(operator) {
         numsForCalculate.pop()
     }
     else if (numsForCalculate.length === 1) {
-        numsForCalculate.push(+output.textContent);
+        numsForCalculate.push(parseFloat(output.textContent));
         output.textContent = operate(operatorVal);
         operatorVal = operator.textContent.toLowerCase();
         numsForCalculate = [];
@@ -112,6 +112,9 @@ document.querySelector('.equals').addEventListener('click', () => {
 document.querySelector('.negative').addEventListener('click', () =>{
     let output = document.querySelector('.output');
     if(checkOperator() === false){
+        if(parseFloat(output.textContent) === prevAnswer){
+            numsForCalculate[0] = parseFloat(output.textContent) * -1
+        }
     let negOutput = parseFloat(output.textContent) * -1;
     output.textContent = negOutput;
     }

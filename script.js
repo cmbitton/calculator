@@ -11,10 +11,14 @@ function add(x, y) {
 function divide(x, y) {
     return Math.round((x / y) * 100000) / 100000;
 }
+function subtract(x, y) {
+    return Math.round((x - y) * 100000) / 100000;
+}
 function operate(operator) {
     if (operator.toLowerCase() === 'x') return multiply(numsForCalculate[0], numsForCalculate[1]);
-    if (operator.toLowerCase() === '+') return add(numsForCalculate[0], numsForCalculate[1]);
-    if (operator.toLowerCase() === '/') return divide(numsForCalculate[0], numsForCalculate[1]);
+    else if (operator.toLowerCase() === '+') return add(numsForCalculate[0], numsForCalculate[1]);
+    else if (operator.toLowerCase() === '/') return divide(numsForCalculate[0], numsForCalculate[1]);
+    else if (operator.toLowerCase() === '-') return subtract(numsForCalculate[0], numsForCalculate[1]);
 }
 
 function displayNums() {
@@ -70,6 +74,10 @@ function getOperator() {
     const output = document.querySelector('.output');
     for (const operator of operators) {
         operator.addEventListener('click', () => {
+            if (output.textContent === '-'){
+                output.textContent = '';
+                return
+            }
             removeSelectedClass();
             operator.classList.add('selected');
             if (checkrepeatOperation(operator) === true) {

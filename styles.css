@@ -80,7 +80,7 @@ body{
 .equals{
     width: 46.8%;
 }
-.divide:hover, .times:hover, .plus:hover, .equals:hover, .selected{
+.divide:hover, .times:hover, .plus:hover, .equals:hover, .minus:hover, .selected{
     filter: brightness(120%);
     cursor: pointer;
 }

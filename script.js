@@ -5,10 +5,10 @@ let prevAnswer = null;
 function multiply(x, y) {
     return Math.round((x * y) * 100000) / 100000;
 }
-function add(x, y){
+function add(x, y) {
     return Math.round((x + y) * 100000) / 100000;
 }
-function divide(x, y){
+function divide(x, y) {
     return Math.round((x / y) * 100000) / 100000;
 }
 function operate(operator) {
@@ -22,28 +22,28 @@ function displayNums() {
     const nums = document.querySelectorAll('.numpad');
     for (const num of nums) {
         num.addEventListener('click', () => {
-            if(numsForCalculate.length > 1){
+            if (numsForCalculate.length > 1) {
                 output.textContent = '';
                 numsForCalculate = [];
                 prevAnswer = null;
             }
-            if (checkOperator() === true){
+            if (checkOperator() === true) {
                 removeSelectedClass();
                 output.textContent = '';
             }
             output.textContent += num.textContent;
-            
-            
+
+
         })
     }
 }
-function removeSelectedClass(){
+function removeSelectedClass() {
     const operators = document.querySelectorAll('.operator');
     for (const op of operators) {
         op.classList.remove('selected');
     }
 }
-function checkOperator(){
+function checkOperator() {
     const operators = document.querySelectorAll('.operator');
     for (const op of operators) {
         if (op.classList.contains('selected')) return true;
@@ -51,11 +51,12 @@ function checkOperator(){
     return false;
 }
 
-function checkrepeatOperation(operator){
+function checkrepeatOperation(operator) {
     const output = document.querySelector('.output');
-    if(numsForCalculate.length > 1) {
-        numsForCalculate.pop()}
-    else if (numsForCalculate.length === 1){
+    if (numsForCalculate.length > 1) {
+        numsForCalculate.pop()
+    }
+    else if (numsForCalculate.length === 1) {
         numsForCalculate.push(+output.textContent);
         output.textContent = operate(operatorVal);
         operatorVal = operator.textContent.toLowerCase();
@@ -72,10 +73,11 @@ function getOperator() {
             removeSelectedClass();
             operator.classList.add('selected');
             if (checkrepeatOperation(operator) === true) {
-                return};
+                return
+            };
             operatorVal = operator.textContent.toLowerCase();
-            if(prevAnswer === null){
-            numsForCalculate.push(+output.textContent);
+            if (prevAnswer === null) {
+                numsForCalculate.push(+output.textContent);
             }
         })
     }
@@ -87,16 +89,16 @@ document.querySelector('.clear').addEventListener('click', () => {
     removeSelectedClass();
 })
 document.querySelector('.equals').addEventListener('click', () => {
-    const output = document.querySelector('.output');
-
-    numsForCalculate.push(+output.textContent);
-    
-    output.textContent = operate(operatorVal);
-    prevAnswer = +output.textContent;
-    numsForCalculate.shift();
-    numsForCalculate.unshift(prevAnswer);
-    if(numsForCalculate.length > 2){
-        numsForCalculate.pop();
+    if (numsForCalculate.length > 0) {
+        const output = document.querySelector('.output');
+        numsForCalculate.push(+output.textContent);
+        output.textContent = operate(operatorVal);
+        prevAnswer = +output.textContent;
+        numsForCalculate.shift();
+        numsForCalculate.unshift(prevAnswer);
+        if (numsForCalculate.length > 2) {
+            numsForCalculate.pop();
+        }
     }
 })
 

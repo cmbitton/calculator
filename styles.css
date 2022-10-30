@@ -64,7 +64,7 @@ body{
     filter: brightness(150%);
     cursor: pointer;
 }
-.divide, .times, .plus, .equals{
+.divide, .times, .plus, .equals, .minus{
     box-sizing: border-box;
     width: 22%;
     height: auto;
@@ -76,6 +76,9 @@ body{
     font-size: 60px;
     margin: 5px;
     border-radius: 15px;
+}
+.equals{
+    width: 46.8%;
 }
 .divide:hover, .times:hover, .plus:hover, .equals:hover, .selected{
     filter: brightness(120%);

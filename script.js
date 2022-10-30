@@ -101,6 +101,16 @@ document.querySelector('.equals').addEventListener('click', () => {
         }
     }
 })
-
+document.querySelector('.negative').addEventListener('click', () =>{
+    let output = document.querySelector('.output');
+    if(checkOperator() === false){
+    let negOutput = parseFloat(output.textContent) * -1;
+    output.textContent = negOutput;
+    }
+    else{
+        output.textContent = '-';
+        removeSelectedClass();
+    }
+})
 displayNums();
 getOperator();

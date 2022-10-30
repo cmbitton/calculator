@@ -26,27 +26,31 @@ function displayNums() {
     const nums = document.querySelectorAll('.numpad');
     for (const num of nums) {
         num.addEventListener('click', () => {
+            //starts a new operation if one was previously done
             if (numsForCalculate.length > 1) {
                 output.textContent = '';
                 numsForCalculate = [];
                 prevAnswer = null;
             }
+            //if an operator was chosen, clear the output screen and operator selection to begin logging second number
             if (checkOperator() === true) {
-                removeSelectedClass();
+                removeSelectedOperator();
                 output.textContent = '';
             }
+            //log number in ouput
             output.textContent += num.textContent;
 
 
         })
     }
 }
-function removeSelectedClass() {
+function removeSelectedOperator() {
     const operators = document.querySelectorAll('.operator');
     for (const op of operators) {
         op.classList.remove('selected');
     }
 }
+//checks to see if an operator is selected
 function checkOperator() {
     const operators = document.querySelectorAll('.operator');
     for (const op of operators) {
@@ -78,7 +82,7 @@ function getOperator() {
                 output.textContent = '';
                 return
             }
-            removeSelectedClass();
+            removeSelectedOperator();
             operator.classList.add('selected');
             if (checkrepeatOperation(operator) === true) {
                 return
@@ -94,7 +98,7 @@ document.querySelector('.clear').addEventListener('click', () => {
     numsForCalculate = [];
     prevAnswer = null;
     document.querySelector('.output').textContent = '';
-    removeSelectedClass();
+    removeSelectedOperator();
 })
 document.querySelector('.equals').addEventListener('click', () => {
     if (numsForCalculate.length > 0) {
@@ -120,8 +124,23 @@ document.querySelector('.negative').addEventListener('click', () =>{
     }
     else{
         output.textContent = '-';
-        removeSelectedClass();
+        removeSelectedOperator();
     }
+})
+
+document.querySelector('.percent').addEventListener('click', () =>{
+    let output = document.querySelector('.output');
+    
+        if(parseFloat(output.textContent) === prevAnswer){
+            numsForCalculate[0] = parseFloat(output.textContent) / 100;
+        }
+    let negOutput = parseFloat(output.textContent) / 100;
+    output.textContent = negOutput;
+    
+  
+    removeSelectedOperator();
+    document.querySelector('.percent').classList.add('selected')
+    
 })
 displayNums();
 getOperator();

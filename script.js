@@ -3,14 +3,18 @@ let operatorVal;
 let prevAnswer = null;
 
 function multiply(x, y) {
-    return x * y;
+    return Math.round((x * y) * 100000) / 100000;
 }
 function add(x, y){
-    return x + y;
+    return Math.round((x + y) * 100000) / 100000;
+}
+function divide(x, y){
+    return Math.round((x / y) * 100000) / 100000;
 }
 function operate(operator) {
     if (operator.toLowerCase() === 'x') return multiply(numsForCalculate[0], numsForCalculate[1]);
     if (operator.toLowerCase() === '+') return add(numsForCalculate[0], numsForCalculate[1]);
+    if (operator.toLowerCase() === '/') return divide(numsForCalculate[0], numsForCalculate[1]);
 }
 
 function displayNums() {

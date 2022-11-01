@@ -67,6 +67,7 @@ function checkrepeatOperation(operator) {
     else if (numsForCalculate.length === 1) {
         numsForCalculate.push(parseFloat(output.textContent));
         output.textContent = operate(operatorVal);
+        if(+output.textContent > 999999999999 || +output.textContent < -999999999999) output.textContent = operate(operatorVal).toExponential(2);
         operatorVal = operator.textContent.toLowerCase();
         numsForCalculate = [];
         numsForCalculate.push(+output.textContent);
@@ -105,6 +106,7 @@ document.querySelector('.equals').addEventListener('click', () => {
         const output = document.querySelector('.output');
         numsForCalculate.push(+output.textContent);
         output.textContent = operate(operatorVal);
+        if(+output.textContent > 999999999999 || +output.textContent < -999999999999) output.textContent = operate(operatorVal).toExponential(2);
         prevAnswer = +output.textContent;
         numsForCalculate.shift();
         numsForCalculate.unshift(prevAnswer);
@@ -139,7 +141,6 @@ document.querySelector('.percent').addEventListener('click', () =>{
     
   
     removeSelectedOperator();
-    document.querySelector('.percent').classList.add('selected')
     
 })
 displayNums();

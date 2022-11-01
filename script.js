@@ -25,7 +25,10 @@ function displayNums() {
     const output = document.querySelector('.output');
     const nums = document.querySelectorAll('.numpad');
     for (const num of nums) {
-        num.addEventListener('click', () => {
+        num.addEventListener('click', (e) => {
+            if(e.target.textContent === '.'){
+                if (output.textContent.includes('.')) return;
+            }
             //starts a new operation if one was previously done
             if (numsForCalculate.length > 1) {
                 output.textContent = '';
